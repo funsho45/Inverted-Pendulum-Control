@@ -1,5 +1,5 @@
 # Inverted Pendulum Control
-Control the angle of an inverted pendulum using PID.
+Control of an inverted pendulum using PID.
 
 - [Inverted Pendulum Control](#inverted-pendulum-control)
 - [Introduction](#introduction)
