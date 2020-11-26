@@ -1,13 +1,22 @@
 # Inverted Pendulum Control
 Control the angle of an inverted pendulum using PID.
 
+- [Inverted Pendulum Control](#inverted-pendulum-control)
+- [Introduction](#introduction)
+  * [Design of the pendulum](#design-of-the-inverted-pendulum)
+- [Modelling of system](#modelling-of-system)
+- [Control Design and simulation](#control-design-and-simulation)
+- [Implementation](#implementation)
+  * [LABVIEW Algorithm](#labview-algorithm)
+  * [PID Control Algorithm](#pid-control-algorithm)
+- [Results](#results)
 
 # Introduction 
 
 The inverted pendulum system is unstable, complicated and non-linear. To control the angle of an
 inverted pendulum efficiently and effectively the PID control strategy is used. 
 
-## Design of the pendulum 
+## Design of the inverted pendulum 
 
 The design shown below is based on the LEGO-Mindstorm EV3, and is a simple cart with two driving wheels, two fixed wheels at the bottom of it, and a pendulum attached to the top part of the cart in order to stabilise the system and help it reach equilibrium. For the pendulum to keep in the upright position, a pendulum head was attached to the top of the rod to try to control it and prevent it from moving back and forth, thus resulting in equilibrium. The total mass of our final design was found to be about 770 grams, including all components added, wires, wheels, etc. The total length of the rod was measured to be about 35.6 cm, however, when getting to the resolving of equations, only half the length of the rod will be used, which is about 17.8 cm. The length of the rod has a direct effect on the motion of the whole design, because the centre of mass changes with the length of the rod, thus resulting in the change of the dynamics of our desired mechanical design.
 
@@ -87,7 +96,7 @@ These two equations, however, are non-linear and need to be linearised in order 
 
 Where *u* represent the input replacing the force (F).
 
-## Parameters for our system 
+## Parameters for the system 
 
 For our system the following parameters were measured and recorded.
 
@@ -111,13 +120,15 @@ For this project the main problem was to control the pendulums position and get 
 •	the system has a settling time for the angle of no less than 5 seconds
  To make the system meet these conditions, different methods of control were used.
  
-Proportional Integral Derivative (PID) Control
+## Proportional Integral Derivative (PID) Control
 
 PID is very well-known and commonly used feedback controller, due to its reliability and efficiency and consists of three parameters. The proportional gain which acts as a multiplier and multiplies the error response, the integral gain which sums up all the errors produce to reduce the steady-state error and a derivative gain which is the product of the rate of change of the error. It calculates the variation between the measured value and the desired value. And like many controllers It calculates the variation between the measured value and the desired value as shown in **Figure 3**.
 
 ![image](https://user-images.githubusercontent.com/73448401/100287473-9c49fc80-2f6c-11eb-844f-53075ce8f052.png)
 
-The PID controller was one of the methods used to bring the inverted pendulum equilibrium point when the cart reaches its setpoint. The PID control equation used to control the pendulum is:
+The PID controller was one of the methods used to bring the inverted pendulum equilibrium point when the cart reaches its setpoint. 
+
+The PID control equation used to control the pendulum is:
 
 ![image](https://user-images.githubusercontent.com/73448401/100287553-c00d4280-2f6c-11eb-8df0-6eacf296e9a2.png)
 
@@ -125,7 +136,7 @@ The PID controller was one of the methods used to bring the inverted pendulum eq
 
 Where *u* represents the pendant angle control signal and e_θ represents the error angle. The reference angle for the system is set at 0. The system using the PID controller is simulated in MATLAB and SIMULINK. 
 
-MATLAB/SIMULINK MODEL
+## MATLAB/SIMULINK MODEL
 
 The purpose of the simulation is to theoretically simulate the outcome of the pendulums. The results from the simulation would then be compared to the practical results to evaluate the difference between the theory and the actual performance of the system.
 
@@ -147,7 +158,7 @@ represents the impulse input, the source of disturbance to make the pendulum unb
 
 **Figure 5**:PID controller for inverted pendulum
 
-PID Tuning
+## PID Tuning
 
 Tuning the PID controller has a large result on the control action of the system and its parameters
 Kp, Ki and Kd were found through the trial and error method. Using this method, although not
@@ -189,12 +200,11 @@ Case 4: In the final case, the Kd value was further increased to 25 reducing the
 
 # Implementation
 
-LabVIEW is a graphical programming environment suited for high level system design and was the
-software used to implement our control system design to the actual Lego mind storm inverted
+National Instruments LabVIEW is a graphical programming environment suited for high level system design and was the software used to implement our control system design to the actual Lego mind storm inverted pendulum.
 
 ## LABVIEW Algorithm
 
-Shown in Figure 19, the LabVIEW algorithm begins with an initial countdown lasting five seconds.
+Shown in **Figure 10**, the LabVIEW algorithm begins with an initial countdown lasting five seconds.
 The time generated from the countdown the pendulums will be put in the desired position which
 would be closer to the balanced vertical position. Once the countdown finishes the angle sensor will
 measure what is supposed to be the balanced position of the pendulum and will become the setpoint. The setpoint is going to be the reference value for the pendulum, and the next value that the angle sensor acquires, which would be in the while loop, is going to be compared to the setpoint and the difference between those values will give the error that will be used in the PID controller.
@@ -215,16 +225,18 @@ direction.
 
 ![image](https://user-images.githubusercontent.com/73448401/100293908-2306d580-2f7d-11eb-9674-73b7bef78b4a.png)
 
+**Figure 10**:LabVIEW block diagram for the inverted pendulum system
+
 ## PID Control Algorithm
 
-To create the PID control algorithm in LabVIEW, Equation 5 was applied. The error produced from the difference between the setpoint value and the current sensor value was multiplied by the proportional gain (Kp) to obtain the proportional controller output. To create the integral controller output, the past errors of the systems obtained using a shift register, was multiplied by the damping factor variable to help prevent future overshooting of the system. This is then added to the current error of the system, which is then multiplied by the differential in time
-and the integral gain. The derivative control output was obtained by taking the difference between the actual error of the system and the past error from the previous loop, which was obtained from using another shift register. After the difference in errors is calculated it is then multiplied by the division of the derivative gain and the differential in time. The P, I and D outputs are all then added
-together to give a PID output control the motors.
+To create the PID control algorithm in LabVIEW, Equation 5 was applied. The error produced from the difference between the setpoint value and the current sensor value was multiplied by the proportional gain (Kp) to obtain the proportional controller output. To create the integral controller output, the past errors of the systems obtained using a shift register, was multiplied by the damping factor variable to help prevent future overshooting of the system. This is then added to the current error of the system, which is then multiplied by the differential in time and the integral gain. The derivative control output was obtained by taking the difference between the actual error of the system and the past error from the previous loop, which was obtained from using another shift register. After the difference in errors is calculated it is then multiplied by the division of the derivative gain and the differential in time. The P, I and D outputs are all then added together to give a PID output control the motors.
 
 Also Both the integral and derivative control outputs are also fed back into a shift register to loop
 back their respective errors.
 
 ![image](https://user-images.githubusercontent.com/73448401/100294013-711bd900-2f7d-11eb-8ff6-d5b8102b404a.png)
+
+**Figure 11**: PID Control algorithm
 
 # Results
 
