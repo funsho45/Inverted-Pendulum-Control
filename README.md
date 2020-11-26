@@ -228,7 +228,7 @@ back their respective errors.
 
 # Results
 
-Video demonstration of the inverted pendulum system can be seen below 
+Video demonstration of the inverted pendulum system can be seen by clicking the image below: 
 
-https://www.youtube.com/watch?v=44sXMwYHJCY
+[![](http://img.youtube.com/vi/44sXMwYHJCY/0.jpg)](http://www.youtube.com/watch?v=44sXMwYHJCY "")
 
