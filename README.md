@@ -16,6 +16,10 @@ The design shown below is based on the LEGO-Mindstorm EV3, and is a simple cart 
 A focus was placing the pendulum precisely in the middle of the cart in order to focus the centre of mass in the middle of the design to aid in reaching equilibrium. Another focus in our design was on the pendulum length, because as mentioned above, as the length the increases the centre of mass will change accordingly, making it easier for the pendulum to move back and forth. Also the mass of the rod was taken into consideration, as when you decrease the mass, the chance of it staying in equilibrium will be much
 higher.
 
+## Sensor type (Angle Sensor)
+
+The HiTechnic Angle Sensor for the EV3 was used for this project and it determines the displacement of a object in relation to the desired reference position, which in this case is the absolute angle of the pendulum and is placed on its axis of rotation.
+
 # Modelling of system
 
 To find the two linearised equations of motion for both the cart and the pendulum a description on
