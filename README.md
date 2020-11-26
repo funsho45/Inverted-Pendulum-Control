@@ -1,11 +1,20 @@
 # Inverted Pendulum Control
 Control the angle of an inverted pendulum using PID.
 
+
 # Introduction 
 
 The inverted pendulum system is unstable, complicated and non-linear. To control the angle of an
-inverted pendulum efficiently and effectively some sort of control strategy is needed and to
-strategies are presented in this report PID control. 
+inverted pendulum efficiently and effectively the PID control strategy is used. 
+
+## Design of the pendulum 
+
+The design shown below is based on the LEGO-Mindstorm EV3, and is a simple cart with two driving wheels, two fixed wheels at the bottom of it, and a pendulum attached to the top part of the cart in order to stabilise the system and help it reach equilibrium. For the pendulum to keep in the upright position, a pendulum head was attached to the top of the rod to try to control it and prevent it from moving back and forth, thus resulting in equilibrium. The total mass of our final design was found to be about 770 grams, including all components added, wires, wheels, etc. The total length of the rod was measured to be about 35.6 cm, however, when getting to the resolving of equations, only half the length of the rod will be used, which is about 17.8 cm. The length of the rod has a direct effect on the motion of the whole design, because the centre of mass changes with the length of the rod, thus resulting in the change of the dynamics of our desired mechanical design.
+
+![image](https://user-images.githubusercontent.com/73448401/100291679-572ac800-2f76-11eb-8a31-0715a511182a.png)
+
+A focus was placing the pendulum precisely in the middle of the cart in order to focus the centre of mass in the middle of the design to aid in reaching equilibrium. Another focus in our design was on the pendulum length, because as mentioned above, as the length the increases the centre of mass will change accordingly, making it easier for the pendulum to move back and forth. Also the mass of the rod was taken into consideration, as when you decrease the mass, the chance of it staying in equilibrium will be much
+higher.
 
 # Modelling of system
 
@@ -174,4 +183,48 @@ Case 4: In the final case, the Kd value was further increased to 25 reducing the
 
 **Figure 9**: System response for case 4
 
+# Implementation
+
+LabVIEW is a graphical programming environment suited for high level system design and was the
+software used to implement our control system design to the actual Lego mind storm inverted
+
+## LABVIEW Algorithm
+
+Shown in Figure 19, the LabVIEW algorithm begins with an initial countdown lasting five seconds.
+The time generated from the countdown the pendulums will be put in the desired position which
+would be closer to the balanced vertical position. Once the countdown finishes the angle sensor will
+measure what is supposed to be the balanced position of the pendulum and will become the setpoint. The setpoint is going to be the reference value for the pendulum, and the next value that the angle sensor acquires, which would be in the while loop, is going to be compared to the setpoint and the difference between those values will give the error that will be used in the PID controller.
+
+Once the error has been calculated, it enters a case structure, if it is equal to 0 no power will be
+given to the motors since pendulum would be in a balanced position. If the error is not equal to 0
+however, the PID controller shown in Figure 20 will calculate the voltage that will be needed for the
+motors to balance the pendulum.
+
+Once the summation of the P, I and D controller outputs have been calculated the power of the
+motor will be obtained. The output value will be put in an ‘In Range and Coerce’ block to limit its
+values between an upper limit 100 and a lower limit of -100 and tells how fast the motors are going
+to move in one direction or the other. To determine which direction the motors are going to move in
+depends on whether the error is less than 0. In the case structure, if the motors are less than 0 they
+will move forward, if the motors are greater than 0 then it will move backwards. In the true case
+structure multiplying the PID output value by -1 was to ensure that the motor will go in the opposite
+direction.
+
+![image](https://user-images.githubusercontent.com/73448401/100293908-2306d580-2f7d-11eb-9674-73b7bef78b4a.png)
+
+## PID Control Algorithm
+
+To create the PID control algorithm in LabVIEW, Equation 5 was applied. The error produced from the difference between the setpoint value and the current sensor value was multiplied by the proportional gain (Kp) to obtain the proportional controller output. To create the integral controller output, the past errors of the systems obtained using a shift register, was multiplied by the damping factor variable to help prevent future overshooting of the system. This is then added to the current error of the system, which is then multiplied by the differential in time
+and the integral gain. The derivative control output was obtained by taking the difference between the actual error of the system and the past error from the previous loop, which was obtained from using another shift register. After the difference in errors is calculated it is then multiplied by the division of the derivative gain and the differential in time. The P, I and D outputs are all then added
+together to give a PID output control the motors.
+
+Also Both the integral and derivative control outputs are also fed back into a shift register to loop
+back their respective errors.
+
+![image](https://user-images.githubusercontent.com/73448401/100294013-711bd900-2f7d-11eb-8ff6-d5b8102b404a.png)
+
+# Results
+
+Video demonstration of the inverted pendulum system can be seen below 
+
+https://www.youtube.com/watch?v=44sXMwYHJCY
 
