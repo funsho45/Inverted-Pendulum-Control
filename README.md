@@ -9,7 +9,7 @@ Control of an inverted pendulum using PID.
 - [Implementation](#implementation)
   * [LABVIEW Algorithm](#labview-algorithm)
   * [PID Control Algorithm](#pid-control-algorithm)
-- [Results](#results)
+- [Video Demonstration](#video-demonstration)
 
 # Introduction 
 
@@ -238,7 +238,7 @@ back their respective errors.
 
 **Figure 11**: PID Control algorithm
 
-# Results
+# Video Demonstration
 
 Video demonstration of the inverted pendulum system can be seen by clicking the image below: 
 
